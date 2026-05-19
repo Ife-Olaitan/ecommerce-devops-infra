@@ -15,7 +15,7 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-west-2"
+  region = var.region
 }
 
 module "vpc" {
@@ -32,6 +32,6 @@ module "eks" {
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
   node_groups     = var.node_groups
-  subnet_ids      = var.private_subnet_cidrs
+  subnet_ids      = module.vpc.private_subnet_ids
   vpc_id          = module.vpc.vpc_id
 }
